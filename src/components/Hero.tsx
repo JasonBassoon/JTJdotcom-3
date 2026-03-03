@@ -75,10 +75,10 @@ export default function Hero() {
             Hello, I am <span className="gradient-text">{aboutInfo.name}</span>
           </h1>
           <h2 className="hero-subtitle-large">
-            {aboutInfo.subtitle}
+            {aboutInfo.title}
           </h2>
           <p className="hero-subtitle">
-            {aboutInfo.hero_bio}
+            {aboutInfo.bio}
           </p>
           <div className="hero-cta">
             <a href={aboutInfo.hero_cta_primary_link} className="btn btn-primary">
