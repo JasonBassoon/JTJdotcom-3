@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { supabase, type DocumentationStep } from '../lib/supabase'
-import { useAuth } from '../contexts/AuthContext'
-import LoginModal from './LoginModal'
 
 interface ProjectDocumentationProps {
   projectId: string
@@ -9,13 +7,11 @@ interface ProjectDocumentationProps {
 }
 
 export default function ProjectDocumentation({ projectId, projectTitle }: ProjectDocumentationProps) {
-  const { user } = useAuth()
   const [steps, setSteps] = useState<DocumentationStep[]>([])
   const [loading, setLoading] = useState(true)
   const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
   const [copyError, setCopyError] = useState<string | null>(null)
-  const [showLoginModal, setShowLoginModal] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -71,14 +67,6 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
   }
 
   async function handleCopyClick() {
-    if (!user) {
-      setShowLoginModal(true)
-      return
-    }
-    await copyToClipboard()
-  }
-
-  async function copyToClipboard() {
     const text = formatDocumentationText()
     setCopyError(null)
 
@@ -120,11 +108,6 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
     } finally {
       document.body.removeChild(textArea)
     }
-  }
-
-  function handleLoginSuccess() {
-    setShowLoginModal(false)
-    copyToClipboard()
   }
 
   if (loading) {
@@ -240,12 +223,6 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
           </div>
         </div>
       )}
-
-      <LoginModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-        onSuccess={handleLoginSuccess}
-      />
     </div>
   )
 }
