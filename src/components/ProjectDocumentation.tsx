@@ -14,6 +14,7 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
   const [loading, setLoading] = useState(true)
   const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [copyError, setCopyError] = useState<string | null>(null)
   const [showLoginModal, setShowLoginModal] = useState(false)
 
   useEffect(() => {
@@ -79,12 +80,45 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
 
   async function copyToClipboard() {
     const text = formatDocumentationText()
+    setCopyError(null)
+
     try {
-      await navigator.clipboard.writeText(text)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } else {
+        fallbackCopyToClipboard(text)
+      }
     } catch (error) {
       console.error('Failed to copy:', error)
+      fallbackCopyToClipboard(text)
+    }
+  }
+
+  function fallbackCopyToClipboard(text: string) {
+    const textArea = document.createElement('textarea')
+    textArea.value = text
+    textArea.style.position = 'fixed'
+    textArea.style.left = '-999999px'
+    textArea.style.top = '-999999px'
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      const successful = document.execCommand('copy')
+      if (successful) {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      } else {
+        setCopyError('Copy failed. Please try selecting and copying manually.')
+      }
+    } catch (err) {
+      console.error('Fallback copy failed:', err)
+      setCopyError('Unable to copy. Your browser may not support this feature.')
+    } finally {
+      document.body.removeChild(textArea)
     }
   }
 
@@ -179,6 +213,30 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
             >
               {copied ? '✓ Copied!' : `📋 cp ${projectTitle} details`}
             </button>
+            {copyError && (
+              <div style={{
+                marginTop: '12px',
+                padding: '8px 12px',
+                backgroundColor: '#fee',
+                color: '#c33',
+                borderRadius: '4px',
+                fontSize: '13px',
+                maxWidth: '400px',
+                margin: '12px auto 0'
+              }}>
+                {copyError}
+              </div>
+            )}
+            {copied && (
+              <div style={{
+                marginTop: '8px',
+                color: '#4caf50',
+                fontSize: '13px',
+                fontWeight: '500'
+              }}>
+                Documentation copied to clipboard!
+              </div>
+            )}
           </div>
         </div>
       )}
