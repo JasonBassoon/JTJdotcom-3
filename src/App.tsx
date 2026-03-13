@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Hero from './components/Hero'
+import WhatsNew from './components/WhatsNew'
 import Projects from './components/Projects'
 import Learning from './components/Learning'
 import Experience from './components/Experience'
@@ -28,6 +29,7 @@ function App() {
           </button>
           <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
             <a href="#hero" onClick={handleNavClick}>Home</a>
+            <a href="#whats-new" onClick={handleNavClick}>What's New</a>
             <a href="#projects" onClick={handleNavClick}>Projects</a>
             <a href="#learning" onClick={handleNavClick}>Learning</a>
             <a href="#experience" onClick={handleNavClick}>Experience</a>
@@ -40,6 +42,7 @@ function App() {
         <div id="hero">
           <Hero />
         </div>
+        <WhatsNew />
         <Projects />
         <Learning />
         <Experience />

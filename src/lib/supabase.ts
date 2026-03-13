@@ -104,3 +104,16 @@ export type AboutInfo = {
   created_at: string
   updated_at: string
 }
+
+export type WhatsNew = {
+  id: string
+  title: string
+  description: string
+  date: string
+  category: string
+  link_url: string | null
+  link_text: string | null
+  order_index: number
+  created_at: string
+  updated_at: string
+}
