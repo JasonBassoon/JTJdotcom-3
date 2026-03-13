@@ -50,7 +50,7 @@ export default function Hero() {
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Hello, I am <span className="gradient-text">Jason</span>
+              <span className="gradient-text">Hi, I'm Jason - not of the Argonauts</span>
             </h1>
             <h2 className="hero-subtitle-large">
               Aspiring Cybersecurity Professional
@@ -72,7 +72,7 @@ export default function Hero() {
       <div className="container">
         <div className="hero-content">
           <h1 className="hero-title">
-            Hello, I am <span className="gradient-text">{aboutInfo.name}</span>
+            <span className="gradient-text">{aboutInfo.hero_greeting || "Hi, I'm Jason - not of the Argonauts"}</span>
           </h1>
           <h2 className="hero-subtitle-large">
             {aboutInfo.title}

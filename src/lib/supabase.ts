@@ -92,6 +92,7 @@ export type AboutInfo = {
   subtitle: string
   bio: string
   hero_bio: string
+  hero_greeting: string | null
   email: string | null
   github_url: string | null
   linkedin_url: string | null
