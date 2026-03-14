@@ -64,7 +64,7 @@ export default function Experience() {
 
         <div className="experience-timeline">
           {experiences.map((exp, index) => (
-            <div key={exp.id} className="experience-card">
+            <div key={exp.id} id={`experience-${exp.id}`} className="experience-card">
               <div className="experience-header">
                 <div className="experience-icon">
                   <Briefcase size={24} />
