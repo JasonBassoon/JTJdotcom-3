@@ -6,7 +6,7 @@ export default function NmapCaseStudy() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Overview</h2>
-          <p>Overview content goes here.</p>
+          <p>This case study documents a detected Nmap port scan within my internal SOC lab. A Kali Linuix attacker system initiated reconnaissance against an Ubuntu target with the 10.10.10.0/24 network. The activity was successfully detected and correlated using Wazuh SIEM and supporting telemetry, providing visibility into pre-exploitation behavior.</p>
         </section>
 
         <section className="mb-8">
