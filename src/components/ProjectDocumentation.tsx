@@ -118,6 +118,10 @@ export default function ProjectDocumentation({ projectId, projectTitle }: Projec
     return null
   }
 
+  if (projectTitle === 'SOC Alert Investigation Workflow') {
+    return null
+  }
+
   return (
     <div className="project-documentation">
       <button
