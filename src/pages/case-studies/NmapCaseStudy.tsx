@@ -11,7 +11,8 @@ export default function NmapCaseStudy() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Attack Simulation</h2>
-          <p>Attack simulation content goes here.</p>
+          <p>Attack simulation was performed from a Kali Linux system using Nmap to enumerate open ports and services on the target Ubuntu machine. The scan targeted common ports (22, 80, 443) and was executed to simulate reconnaissance activity within an internal network.</p>
+          <p className="mt-4 font-mono bg-gray-100 p-4 rounded">Command used: sudo nmap -sS --script vuln 10.10.10.115</p>
         </section>
 
         <section className="mb-8">
