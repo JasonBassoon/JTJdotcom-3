@@ -1,4 +1,4 @@
-import { FileText, Download, FileCheck } from 'lucide-react';
+import { FileCheck } from 'lucide-react';
 import { useState } from 'react';
 
 interface PDFPreviewTileProps {
@@ -251,47 +251,6 @@ export default function PDFPreviewTile({
             }}>
               {date}
             </div>
-          </div>
-        </div>
-
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          opacity: isHovered ? 1 : 0,
-          transition: 'opacity 0.3s ease',
-          pointerEvents: 'none'
-        }}>
-          <FileText size={56} style={{ color: '#ffffff', strokeWidth: 1.5 }} />
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
-            <span style={{
-              color: '#ffffff',
-              fontSize: '1.25rem',
-              fontWeight: '700',
-              letterSpacing: '0.025em'
-            }}>
-              View Full Report
-            </span>
-            <span style={{
-              color: '#dbeafe',
-              fontSize: '0.875rem',
-              fontWeight: '500'
-            }}>
-              Click to open PDF
-            </span>
           </div>
         </div>
       </a>
