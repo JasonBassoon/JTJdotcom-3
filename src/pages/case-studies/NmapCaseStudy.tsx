@@ -17,7 +17,8 @@ export default function NmapCaseStudy() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Detection</h2>
-          <p>Detection content goes here.</p>
+          <p>The reconnaissance activity was detected by Wazuh SIEM through correlated alerts generated from web server logs and network behavior. A spike in alerts was observed in the dashboard during the time of the scan, indicating abnormal activity on the target system.</p>
+          <p className="mt-4">Wazuh identified multipe HTTP 400 error responses and grouped them as potential web attack activity. These alerts, combined with timeline correlation, confirmed the presence of automated scanning behavior originating from the Kali attacker system.</p>
         </section>
 
         <section className="mb-8">
