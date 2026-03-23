@@ -68,7 +68,7 @@ function App() {
               </button>
             </div>
             <WhatsNew />
-            <Projects />
+            <Projects onShowCaseStudy={() => setShowCaseStudy(true)} />
             <Learning />
             <Experience />
             <Contact />

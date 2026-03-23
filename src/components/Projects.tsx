@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { supabase, type Project } from '../lib/supabase'
 import ProjectDocumentation from './ProjectDocumentation'
 
-export default function Projects() {
+interface ProjectsProps {
+  onShowCaseStudy?: () => void
+}
+
+export default function Projects({ onShowCaseStudy }: ProjectsProps) {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -88,15 +92,23 @@ export default function Projects() {
                 </div>
 
                 <div className="project-links">
-                  {project.live_url && (
-                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="btn btn-small">
-                      Live Demo
-                    </a>
-                  )}
-                  {project.github_url && (
-                    <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-secondary">
-                      GitHub
-                    </a>
+                  {project.title === 'SOC Alert Investigation Workflow' && onShowCaseStudy ? (
+                    <button onClick={onShowCaseStudy} className="btn btn-small">
+                      View Case Study
+                    </button>
+                  ) : (
+                    <>
+                      {project.live_url && (
+                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="btn btn-small">
+                          Live Demo
+                        </a>
+                      )}
+                      {project.github_url && (
+                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-secondary">
+                          GitHub
+                        </a>
+                      )}
+                    </>
                   )}
                 </div>
 
