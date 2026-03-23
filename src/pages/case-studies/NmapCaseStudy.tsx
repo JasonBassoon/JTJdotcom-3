@@ -6,76 +6,78 @@ export default function NmapCaseStudy() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--text)', fontSize: '2.5rem', fontWeight: '700' }}>Nmap Port Scan Case Study</h1>
 
-        <a
-          href="/reports/nmap-port-scan-report.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="report-preview-card"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-            padding: '1.5rem',
-            marginBottom: '2rem',
-            background: 'var(--surface)',
-            border: '1px solid var(--surface-light)',
-            borderRadius: '12px',
-            textDecoration: 'none',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
-            cursor: 'pointer'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-5px)';
-            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.2)';
-            e.currentTarget.style.borderColor = 'var(--primary)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
-            e.currentTarget.style.borderColor = 'var(--surface-light)';
-          }}
-        >
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '48px',
-            height: '48px',
-            flexShrink: 0
-          }}>
-            <FileText size={48} style={{ color: 'var(--primary)' }} />
-          </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '16px',
+          marginBottom: '24px'
+        }}>
+          <a
+            href="/reports/nmap-port-scan-report.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              padding: '18px 20px',
+              maxWidth: '420px',
+              width: '100%',
+              background: '#ffffff',
+              border: '1px solid #e5e7eb',
+              borderRadius: '12px',
+              boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+              textDecoration: 'none',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
+            }}
+          >
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              flexShrink: 0
+            }}>
+              <FileText size={32} style={{ color: '#6b7280' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{
+                fontSize: '0.75rem',
+                color: '#9ca3af',
+                fontWeight: '500',
+                letterSpacing: '0.05em',
+                marginBottom: '4px'
+              }}>
+                PDF REPORT
+              </div>
               <h3 style={{
-                color: 'var(--text)',
+                color: '#111827',
                 fontSize: '1.125rem',
-                fontWeight: '600',
-                margin: 0
+                fontWeight: '700',
+                margin: '0 0 2px 0'
               }}>
                 SOC Incident Report
               </h3>
-              <span style={{
-                fontSize: '0.625rem',
-                padding: '0.25rem 0.5rem',
-                background: 'rgba(6, 182, 212, 0.1)',
-                color: 'var(--primary)',
-                borderRadius: '9999px',
-                fontWeight: '600',
-                letterSpacing: '0.05em'
+              <p style={{
+                color: '#6b7280',
+                fontSize: '0.875rem',
+                margin: 0
               }}>
-                REPORT
-              </span>
+                Nmap Port Scan Detection
+              </p>
             </div>
-            <p style={{
-              color: 'var(--text-muted)',
-              fontSize: '0.875rem',
-              margin: 0
-            }}>
-              PDF • March 2026
-            </p>
-          </div>
-        </a>
+          </a>
+        </div>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4" style={{ color: 'var(--text)', fontSize: '1.5rem', fontWeight: '700' }}>Overview</h2>
