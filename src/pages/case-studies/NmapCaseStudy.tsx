@@ -1,4 +1,4 @@
-import { FileText } from 'lucide-react';
+import PDFPreviewTile from '../../components/PDFPreviewTile';
 
 export default function NmapCaseStudy() {
   return (
@@ -6,78 +6,11 @@ export default function NmapCaseStudy() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--text)', fontSize: '2.5rem', fontWeight: '700' }}>Nmap Port Scan Case Study</h1>
 
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '16px',
-          marginBottom: '24px'
-        }}>
-          <a
-            href="/reports/nmap-port-scan-report.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              padding: '18px 20px',
-              maxWidth: '420px',
-              width: '100%',
-              background: '#ffffff',
-              border: '1px solid #e5e7eb',
-              borderRadius: '12px',
-              boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-              textDecoration: 'none',
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
-            }}
-          >
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '40px',
-              height: '40px',
-              flexShrink: 0
-            }}>
-              <FileText size={32} style={{ color: '#6b7280' }} />
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{
-                fontSize: '0.75rem',
-                color: '#9ca3af',
-                fontWeight: '500',
-                letterSpacing: '0.05em',
-                marginBottom: '4px'
-              }}>
-                PDF REPORT
-              </div>
-              <h3 style={{
-                color: '#111827',
-                fontSize: '1.125rem',
-                fontWeight: '700',
-                margin: '0 0 2px 0'
-              }}>
-                SOC Incident Report
-              </h3>
-              <p style={{
-                color: '#6b7280',
-                fontSize: '0.875rem',
-                margin: 0
-              }}>
-                Nmap Port Scan Detection
-              </p>
-            </div>
-          </a>
-        </div>
+        <PDFPreviewTile
+          pdfUrl="/reports/nmap-port-scan-report.pdf"
+          title="SOC Incident Report"
+          subtitle="Nmap Port Scan Detection"
+        />
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4" style={{ color: 'var(--text)', fontSize: '1.5rem', fontWeight: '700' }}>Overview</h2>
