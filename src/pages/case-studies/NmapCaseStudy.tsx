@@ -29,7 +29,8 @@ export default function NmapCaseStudy() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Outcome</h2>
-          <p>Outcome content goes here.</p>
+          <p>The simulated attack was successfully detected and analyzed without any impact to the target system. No exploitation activity was observed following the scan, confirming that the behavior was limited to reconnaissance.</p>
+          <p className="mt-4">This case study demonstrates the effectiveness of SIEM-based monitoring in identifying early-stage attack activity. Detecting reconnaissance at this stage provides defenders with an opportunity to respond before further escalation occurs.</p>
         </section>
       </div>
     </div>
