@@ -23,7 +23,8 @@ export default function NmapCaseStudy() {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Analysis</h2>
-          <p>Analysis content goes here.</p>
+          <p>Analysis of the alert data indicates that the activity was consistent with reconnaissance behavior, specifically network service discovery. The use of Nmap to probe multiple ports and services generated identifiable patterns within the SIEM, including repeated HTTP error responses and clustered alert timing.</p>
+          <p className="mt-4">The concentration of alerts within a short time window, combined with a single source system, supports the conclusion that the activity was automated rather than user driven. This behavior aligns with MITRE ATT&CK technique T1046 (Network Service Discovery), which is commonly observed during the initial stages of an attack lifecycle.</p>
         </section>
 
         <section className="mb-8">
