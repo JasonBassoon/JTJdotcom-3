@@ -896,6 +896,12 @@ main {
   border: 1px solid var(--secondary);
 }
 
+.category-case-study {
+  background: rgba(249, 115, 22, 0.2);
+  color: #f97316;
+  border: 1px solid #f97316;
+}
+
 .whats-new-date {
   color: var(--text-muted);
   font-size: 0.875rem;

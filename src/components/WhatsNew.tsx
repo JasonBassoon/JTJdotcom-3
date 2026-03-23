@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { supabase, type WhatsNew } from '../lib/supabase'
 import { ExternalLink } from 'lucide-react'
 
-export default function WhatsNewSection() {
+interface WhatsNewSectionProps {
+  onShowCaseStudy?: () => void
+}
+
+export default function WhatsNewSection({ onShowCaseStudy }: WhatsNewSectionProps) {
   const [updates, setUpdates] = useState<WhatsNew[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -39,8 +43,17 @@ export default function WhatsNewSection() {
         return 'category-certification'
       case 'achievement':
         return 'category-achievement'
+      case 'case study':
+        return 'category-case-study'
       default:
         return 'category-update'
+    }
+  }
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, update: WhatsNew) => {
+    if (update.link_url === '#case-study-nmap' && onShowCaseStudy) {
+      e.preventDefault()
+      onShowCaseStudy()
     }
   }
 
@@ -85,6 +98,7 @@ export default function WhatsNewSection() {
                 <a
                   href={update.link_url}
                   className="whats-new-link"
+                  onClick={(e) => handleLinkClick(e, update)}
                   target={update.link_url.startsWith('http') ? '_blank' : undefined}
                   rel={update.link_url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >

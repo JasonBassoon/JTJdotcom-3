@@ -59,7 +59,7 @@ function App() {
             <div id="hero">
               <Hero />
             </div>
-            <WhatsNew />
+            <WhatsNew onShowCaseStudy={() => setShowCaseStudy(true)} />
             <Projects onShowCaseStudy={() => setShowCaseStudy(true)} />
             <Learning />
             <Experience />
