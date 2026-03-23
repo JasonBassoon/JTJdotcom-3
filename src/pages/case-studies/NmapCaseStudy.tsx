@@ -1,8 +1,81 @@
+import { FileText } from 'lucide-react';
+
 export default function NmapCaseStudy() {
   return (
     <div className="min-h-screen py-12 px-4" style={{ background: 'var(--background)' }}>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--text)', fontSize: '2.5rem', fontWeight: '700' }}>Nmap Port Scan Case Study</h1>
+
+        <a
+          href="/reports/nmap-port-scan-report.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="report-preview-card"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.5rem',
+            padding: '1.5rem',
+            marginBottom: '2rem',
+            background: 'var(--surface)',
+            border: '1px solid var(--surface-light)',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-5px)';
+            e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.2)';
+            e.currentTarget.style.borderColor = 'var(--primary)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.borderColor = 'var(--surface-light)';
+          }}
+        >
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '48px',
+            height: '48px',
+            flexShrink: 0
+          }}>
+            <FileText size={48} style={{ color: 'var(--primary)' }} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+              <h3 style={{
+                color: 'var(--text)',
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                margin: 0
+              }}>
+                SOC Incident Report
+              </h3>
+              <span style={{
+                fontSize: '0.625rem',
+                padding: '0.25rem 0.5rem',
+                background: 'rgba(6, 182, 212, 0.1)',
+                color: 'var(--primary)',
+                borderRadius: '9999px',
+                fontWeight: '600',
+                letterSpacing: '0.05em'
+              }}>
+                REPORT
+              </span>
+            </div>
+            <p style={{
+              color: 'var(--text-muted)',
+              fontSize: '0.875rem',
+              margin: 0
+            }}>
+              PDF • March 2026
+            </p>
+          </div>
+        </a>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4" style={{ color: 'var(--text)', fontSize: '1.5rem', fontWeight: '700' }}>Overview</h2>
