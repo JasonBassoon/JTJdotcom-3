@@ -6,14 +6,15 @@ import Learning from './components/Learning'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import NmapCaseStudy from './pages/case-studies/NmapCaseStudy'
+import PrivilegeEscalationCaseStudy from './pages/case-studies/PrivilegeEscalationCaseStudy'
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [showCaseStudy, setShowCaseStudy] = useState(false)
+  const [showCaseStudy, setShowCaseStudy] = useState<string | null>(null)
 
   const handleNavClick = () => {
     setMenuOpen(false)
-    setShowCaseStudy(false)
+    setShowCaseStudy(null)
   }
 
   return (
@@ -46,21 +47,22 @@ function App() {
           <div>
             <div className="container" style={{ paddingTop: '2rem' }}>
               <button
-                onClick={() => setShowCaseStudy(false)}
+                onClick={() => setShowCaseStudy(null)}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
               >
                 ← Back
               </button>
             </div>
-            <NmapCaseStudy />
+            {showCaseStudy === 'nmap' && <NmapCaseStudy />}
+            {showCaseStudy === 'privilege-escalation' && <PrivilegeEscalationCaseStudy />}
           </div>
         ) : (
           <>
             <div id="hero">
               <Hero />
             </div>
-            <WhatsNew onShowCaseStudy={() => setShowCaseStudy(true)} />
-            <Projects onShowCaseStudy={() => setShowCaseStudy(true)} />
+            <WhatsNew onShowCaseStudy={(study) => setShowCaseStudy(study)} />
+            <Projects onShowCaseStudy={(study) => setShowCaseStudy(study)} />
             <Learning />
             <Experience />
             <Contact />

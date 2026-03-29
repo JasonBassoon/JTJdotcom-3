@@ -3,7 +3,7 @@ import { supabase, type WhatsNew } from '../lib/supabase'
 import { ExternalLink } from 'lucide-react'
 
 interface WhatsNewSectionProps {
-  onShowCaseStudy?: () => void
+  onShowCaseStudy?: (study: string) => void
 }
 
 export default function WhatsNewSection({ onShowCaseStudy }: WhatsNewSectionProps) {
@@ -53,7 +53,10 @@ export default function WhatsNewSection({ onShowCaseStudy }: WhatsNewSectionProp
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, update: WhatsNew) => {
     if (update.link_url === '#case-study-nmap' && onShowCaseStudy) {
       e.preventDefault()
-      onShowCaseStudy()
+      onShowCaseStudy('nmap')
+    } else if (update.link_url === '#case-study-privilege-escalation' && onShowCaseStudy) {
+      e.preventDefault()
+      onShowCaseStudy('privilege-escalation')
     }
   }
 

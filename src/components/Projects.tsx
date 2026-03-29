@@ -3,7 +3,7 @@ import { supabase, type Project } from '../lib/supabase'
 import ProjectDocumentation from './ProjectDocumentation'
 
 interface ProjectsProps {
-  onShowCaseStudy?: () => void
+  onShowCaseStudy?: (study: string) => void
 }
 
 export default function Projects({ onShowCaseStudy }: ProjectsProps) {
@@ -93,7 +93,11 @@ export default function Projects({ onShowCaseStudy }: ProjectsProps) {
 
                 <div className="project-links">
                   {project.title === 'SOC Alert Investigation Workflow' && onShowCaseStudy ? (
-                    <button onClick={onShowCaseStudy} className="btn btn-small">
+                    <button onClick={() => onShowCaseStudy('nmap')} className="btn btn-small">
+                      View Nmap Case Study
+                    </button>
+                  ) : project.title === 'Wazuh SIEM Lab Environment' && onShowCaseStudy ? (
+                    <button onClick={() => onShowCaseStudy('privilege-escalation')} className="btn btn-small">
                       View Case Study
                     </button>
                   ) : (
