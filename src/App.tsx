@@ -7,6 +7,7 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 import NmapCaseStudy from './pages/case-studies/NmapCaseStudy'
 import PrivilegeEscalationCaseStudy from './pages/case-studies/PrivilegeEscalationCaseStudy'
+import UnauthorizedAccountCreationCaseStudy from './pages/case-studies/UnauthorizedAccountCreationCaseStudy'
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -55,6 +56,7 @@ function App() {
             </div>
             {showCaseStudy === 'nmap' && <NmapCaseStudy />}
             {showCaseStudy === 'privilege-escalation' && <PrivilegeEscalationCaseStudy />}
+            {showCaseStudy === 'unauthorized-account' && <UnauthorizedAccountCreationCaseStudy />}
           </div>
         ) : (
           <>

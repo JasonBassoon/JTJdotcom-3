@@ -93,9 +93,14 @@ export default function Projects({ onShowCaseStudy }: ProjectsProps) {
 
                 <div className="project-links">
                   {project.title === 'SOC Alert Investigation Workflow' && onShowCaseStudy ? (
-                    <button onClick={() => onShowCaseStudy('nmap')} className="btn btn-small">
-                      View Nmap Case Study
-                    </button>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <button onClick={() => onShowCaseStudy('nmap')} className="btn btn-small">
+                        Case Study 1
+                      </button>
+                      <button onClick={() => onShowCaseStudy('unauthorized-account')} className="btn btn-small">
+                        Case Study 2
+                      </button>
+                    </div>
                   ) : project.title === 'Wazuh SIEM Lab Environment' && onShowCaseStudy ? (
                     <button onClick={() => onShowCaseStudy('privilege-escalation')} className="btn btn-small">
                       View Case Study
