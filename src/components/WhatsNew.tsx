@@ -57,6 +57,9 @@ export default function WhatsNewSection({ onShowCaseStudy }: WhatsNewSectionProp
     } else if (update.link_url === '#case-study-privilege-escalation' && onShowCaseStudy) {
       e.preventDefault()
       onShowCaseStudy('privilege-escalation')
+    } else if (update.link_url === '#case-study-unauthorized-account' && onShowCaseStudy) {
+      e.preventDefault()
+      onShowCaseStudy('unauthorized-account')
     }
   }
 
