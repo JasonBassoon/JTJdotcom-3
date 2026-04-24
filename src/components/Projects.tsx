@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase, type Project } from '../lib/supabase'
 import ProjectDocumentation from './ProjectDocumentation'
+import ImageLightbox from './ImageLightbox'
 
 interface ProjectsProps {
   onShowCaseStudy?: (study: string) => void
@@ -9,6 +10,7 @@ interface ProjectsProps {
 export default function Projects({ onShowCaseStudy }: ProjectsProps) {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedImage, setExpandedImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {
     fetchProjects()
@@ -57,9 +59,15 @@ export default function Projects({ onShowCaseStudy }: ProjectsProps) {
           {projects.map((project) => (
             <article key={project.id} className="project-card">
               {project.image_url && (
-                <div className="project-image">
+                <button
+                  type="button"
+                  className="project-image"
+                  onClick={() => setExpandedImage({ src: project.image_url!, alt: project.title })}
+                  aria-label={`View larger image of ${project.title}`}
+                >
                   <img src={project.image_url} alt={project.title} />
-                </div>
+                  <span className="project-image-hint">Click to enlarge</span>
+                </button>
               )}
               <div className="project-content">
                 <div className="flex items-center justify-between mb-2">
@@ -131,6 +139,13 @@ export default function Projects({ onShowCaseStudy }: ProjectsProps) {
           ))}
         </div>
       </div>
+      {expandedImage && (
+        <ImageLightbox
+          src={expandedImage.src}
+          alt={expandedImage.alt}
+          onClose={() => setExpandedImage(null)}
+        />
+      )}
     </section>
   )
 }
