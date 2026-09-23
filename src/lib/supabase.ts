@@ -140,6 +140,7 @@ export type CaseStudy = {
   pdf_url: string | null
   pdf_title: string | null
   pdf_subtitle: string | null
+  header_image_url: string | null
   project_id: string | null
   order_index: number
   created_at: string

@@ -178,6 +178,42 @@ export default function CaseStudyPage({ slug }: CaseStudyProps) {
           {caseStudy.title}
         </h1>
 
+        {caseStudy.header_image_url && (
+          <div style={{ marginBottom: '3rem' }}>
+            <button
+              type="button"
+              className="project-image"
+              onClick={() => setLightboxImage({ src: caseStudy.header_image_url!, alt: caseStudy.title })}
+              aria-label={`View larger image of ${caseStudy.title}`}
+              style={{
+                width: '100%',
+                height: '320px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                background: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid var(--surface-light)',
+                padding: 0,
+                cursor: 'zoom-in',
+                position: 'relative',
+              }}
+            >
+              <img
+                src={caseStudy.header_image_url}
+                alt={caseStudy.title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                }}
+              />
+              <span className="project-image-hint">Click to enlarge</span>
+            </button>
+          </div>
+        )}
+
         {caseStudy.pdf_url && caseStudy.pdf_title && (
           <div className="mb-16" style={{ marginBottom: '4rem' }}>
             <PDFPreviewTile
