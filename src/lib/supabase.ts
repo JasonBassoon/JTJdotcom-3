@@ -122,6 +122,7 @@ export type ContentBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'code'; text: string }
   | { type: 'list'; items: string[] }
+  | { type: 'image'; src: string; alt: string; caption?: string }
 
 export type CaseStudySection = {
   id: string

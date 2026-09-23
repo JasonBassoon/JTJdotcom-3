@@ -1,12 +1,19 @@
 import { useEffect, useState } from 'react'
 import { supabase, type CaseStudy, type ContentBlock } from '../lib/supabase'
 import PDFPreviewTile from './PDFPreviewTile'
+import ImageLightbox from './ImageLightbox'
 
 interface CaseStudyProps {
   slug: string
 }
 
-function ContentBlockRenderer({ block }: { block: ContentBlock }) {
+function ContentBlockRenderer({
+  block,
+  onImageClick,
+}: {
+  block: ContentBlock
+  onImageClick: (src: string, alt: string) => void
+}) {
   switch (block.type) {
     case 'paragraph':
       return (
@@ -43,6 +50,59 @@ function ContentBlockRenderer({ block }: { block: ContentBlock }) {
           ))}
         </ul>
       )
+    case 'image':
+      return (
+        <figure style={{ margin: '2rem 0' }}>
+          <button
+            type="button"
+            onClick={() => onImageClick(block.src, block.alt)}
+            style={{
+              display: 'block',
+              width: '100%',
+              background: 'none',
+              border: '1px solid var(--surface-light)',
+              borderRadius: '0.75rem',
+              overflow: 'hidden',
+              cursor: 'zoom-in',
+              padding: 0,
+              transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'var(--secondary)'
+              e.currentTarget.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.25)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--surface-light)'
+              e.currentTarget.style.boxShadow = 'none'
+            }}
+            aria-label={`View larger: ${block.alt}`}
+          >
+            <img
+              src={block.src}
+              alt={block.alt}
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+              }}
+            />
+          </button>
+          {block.caption && (
+            <figcaption
+              style={{
+                color: 'var(--text-muted)',
+                fontSize: '0.875rem',
+                textAlign: 'center',
+                marginTop: '0.75rem',
+                fontStyle: 'italic',
+                opacity: 0.8,
+              }}
+            >
+              {block.caption}
+            </figcaption>
+          )}
+        </figure>
+      )
     default:
       return null
   }
@@ -52,6 +112,7 @@ export default function CaseStudyPage({ slug }: CaseStudyProps) {
   const [caseStudy, setCaseStudy] = useState<CaseStudy | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {
     async function fetchCaseStudy() {
@@ -142,11 +203,22 @@ export default function CaseStudyPage({ slug }: CaseStudyProps) {
               {section.heading}
             </h2>
             {section.content.map((block, i) => (
-              <ContentBlockRenderer key={i} block={block} />
+              <ContentBlockRenderer
+                key={i}
+                block={block}
+                onImageClick={(src, alt) => setLightboxImage({ src, alt })}
+              />
             ))}
           </section>
         ))}
       </div>
+      {lightboxImage && (
+        <ImageLightbox
+          src={lightboxImage.src}
+          alt={lightboxImage.alt}
+          onClose={() => setLightboxImage(null)}
+        />
+      )}
     </div>
   )
 }
