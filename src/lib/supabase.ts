@@ -117,3 +117,31 @@ export type WhatsNew = {
   created_at: string
   updated_at: string
 }
+
+export type ContentBlock =
+  | { type: 'paragraph'; text: string }
+  | { type: 'code'; text: string }
+  | { type: 'list'; items: string[] }
+
+export type CaseStudySection = {
+  id: string
+  case_study_id: string
+  heading: string
+  content: ContentBlock[]
+  sort_order: number
+  created_at: string
+}
+
+export type CaseStudy = {
+  id: string
+  slug: string
+  title: string
+  pdf_url: string | null
+  pdf_title: string | null
+  pdf_subtitle: string | null
+  project_id: string | null
+  order_index: number
+  created_at: string
+  updated_at: string
+  case_study_sections: CaseStudySection[]
+}

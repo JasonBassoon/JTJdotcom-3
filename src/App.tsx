@@ -5,9 +5,7 @@ import Projects from './components/Projects'
 import Learning from './components/Learning'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
-import NmapCaseStudy from './pages/case-studies/NmapCaseStudy'
-import PrivilegeEscalationCaseStudy from './pages/case-studies/PrivilegeEscalationCaseStudy'
-import UnauthorizedAccountCreationCaseStudy from './pages/case-studies/UnauthorizedAccountCreationCaseStudy'
+import CaseStudyPage from './components/CaseStudy'
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -54,9 +52,7 @@ function App() {
                 ← Back
               </button>
             </div>
-            {showCaseStudy === 'nmap' && <NmapCaseStudy />}
-            {showCaseStudy === 'privilege-escalation' && <PrivilegeEscalationCaseStudy />}
-            {showCaseStudy === 'unauthorized-account' && <UnauthorizedAccountCreationCaseStudy />}
+            <CaseStudyPage slug={showCaseStudy} />
           </div>
         ) : (
           <>

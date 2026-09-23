@@ -7,34 +7,53 @@ interface ProjectsProps {
   onShowCaseStudy?: (study: string) => void
 }
 
+type CaseStudyLink = {
+  slug: string
+  title: string
+  project_id: string
+  order_index: number
+}
+
 export default function Projects({ onShowCaseStudy }: ProjectsProps) {
   const [projects, setProjects] = useState<Project[]>([])
+  const [caseStudyLinks, setCaseStudyLinks] = useState<CaseStudyLink[]>([])
   const [loading, setLoading] = useState(true)
   const [expandedImage, setExpandedImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {
-    fetchProjects()
-  }, [])
+    async function fetchData() {
+      try {
+        const [projectsRes, caseStudiesRes] = await Promise.all([
+          supabase
+            .from('projects')
+            .select('*')
+            .order('order_index', { ascending: true })
+            .order('completed_date', { ascending: false }),
+          supabase
+            .from('case_studies')
+            .select('slug, title, project_id, order_index')
+            .order('order_index', { ascending: true }),
+        ])
 
-  async function fetchProjects() {
-    try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('order_index', { ascending: true })
-        .order('completed_date', { ascending: false })
+        if (projectsRes.error) {
+          console.error('Error fetching projects:', projectsRes.error)
+          throw projectsRes.error
+        }
+        if (caseStudiesRes.error) {
+          console.error('Error fetching case studies:', caseStudiesRes.error)
+        }
 
-      if (error) {
+        setProjects(projectsRes.data || [])
+        setCaseStudyLinks(caseStudiesRes.data || [])
+      } catch (error) {
         console.error('Error fetching projects:', error)
-        throw error
+      } finally {
+        setLoading(false)
       }
-      setProjects(data || [])
-    } catch (error) {
-      console.error('Error fetching projects:', error)
-    } finally {
-      setLoading(false)
     }
-  }
+
+    fetchData()
+  }, [])
 
   if (loading) {
     return (
@@ -56,87 +75,94 @@ export default function Projects({ onShowCaseStudy }: ProjectsProps) {
         </p>
 
         <div className="projects-grid">
-          {projects.map((project) => (
-            <article key={project.id} className="project-card">
-              {project.image_url && (
-                <button
-                  type="button"
-                  className="project-image"
-                  onClick={() => setExpandedImage({ src: project.image_url!, alt: project.title })}
-                  aria-label={`View larger image of ${project.title}`}
-                >
-                  <img src={project.image_url} alt={project.title} />
-                  <span className="project-image-hint">Click to enlarge</span>
-                </button>
-              )}
-              <div className="project-content">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="project-title">{project.title}</h3>
-                  {project.status === 'in_progress' && (
-                    <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
-                      In Progress
-                    </span>
-                  )}
-                </div>
-                <p className="project-description">
-                  {project.long_description || project.description}
-                </p>
+          {projects.map((project) => {
+            const linkedStudies = caseStudyLinks.filter(
+              (cs) => cs.project_id === project.id
+            )
 
-                {project.security_features.length > 0 && (
-                  <div className="project-features">
-                    <h4>Security Features:</h4>
-                    <ul>
-                      {project.security_features.map((feature, idx) => (
-                        <li key={idx}>{feature}</li>
-                      ))}
-                    </ul>
-                  </div>
+            return (
+              <article key={project.id} className="project-card">
+                {project.image_url && (
+                  <button
+                    type="button"
+                    className="project-image"
+                    onClick={() => setExpandedImage({ src: project.image_url!, alt: project.title })}
+                    aria-label={`View larger image of ${project.title}`}
+                  >
+                    <img src={project.image_url} alt={project.title} />
+                    <span className="project-image-hint">Click to enlarge</span>
+                  </button>
                 )}
+                <div className="project-content">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="project-title">{project.title}</h3>
+                    {project.status === 'in_progress' && (
+                      <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
+                        In Progress
+                      </span>
+                    )}
+                  </div>
+                  <p className="project-description">
+                    {project.long_description || project.description}
+                  </p>
 
-                <div className="tech-stack">
-                  {project.tech_stack.map((tech, idx) => (
-                    <span key={idx} className="tech-tag">{tech}</span>
-                  ))}
-                </div>
-
-                <div className="project-links">
-                  {project.title === 'SOC Alert Investigation Workflow' && onShowCaseStudy ? (
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      <button onClick={() => onShowCaseStudy('nmap')} className="btn btn-small">
-                        Case Study 1
-                      </button>
-                      <button onClick={() => onShowCaseStudy('unauthorized-account')} className="btn btn-small">
-                        Case Study 2
-                      </button>
+                  {project.security_features.length > 0 && (
+                    <div className="project-features">
+                      <h4>Security Features:</h4>
+                      <ul>
+                        {project.security_features.map((feature, idx) => (
+                          <li key={idx}>{feature}</li>
+                        ))}
+                      </ul>
                     </div>
-                  ) : project.title === 'Wazuh SIEM Lab Environment' && onShowCaseStudy ? (
-                    <button onClick={() => onShowCaseStudy('privilege-escalation')} className="btn btn-small">
-                      View Case Study
-                    </button>
-                  ) : (
-                    <>
-                      {project.live_url && (
-                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="btn btn-small">
-                          Live Demo
-                        </a>
-                      )}
-                      {project.github_url && (
-                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-secondary">
-                          GitHub
-                        </a>
-                      )}
-                    </>
                   )}
-                </div>
 
-                <ProjectDocumentation
-                  key={project.id}
-                  projectId={project.id}
-                  projectTitle={project.title}
-                />
-              </div>
-            </article>
-          ))}
+                  <div className="tech-stack">
+                    {project.tech_stack.map((tech, idx) => (
+                      <span key={idx} className="tech-tag">{tech}</span>
+                    ))}
+                  </div>
+
+                  <div className="project-links">
+                    {linkedStudies.length > 0 && onShowCaseStudy ? (
+                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        {linkedStudies.map((cs, idx) => (
+                          <button
+                            key={cs.slug}
+                            onClick={() => onShowCaseStudy(cs.slug)}
+                            className="btn btn-small"
+                          >
+                            {linkedStudies.length > 1
+                              ? `Case Study ${idx + 1}`
+                              : 'View Case Study'}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <>
+                        {project.live_url && (
+                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="btn btn-small">
+                            Live Demo
+                          </a>
+                        )}
+                        {project.github_url && (
+                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="btn btn-small btn-secondary">
+                            GitHub
+                          </a>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  <ProjectDocumentation
+                    key={project.id}
+                    projectId={project.id}
+                    projectTitle={project.title}
+                  />
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
       {expandedImage && (
