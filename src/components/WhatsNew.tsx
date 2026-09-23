@@ -60,6 +60,9 @@ export default function WhatsNewSection({ onShowCaseStudy }: WhatsNewSectionProp
     } else if (update.link_url === '#case-study-unauthorized-account' && onShowCaseStudy) {
       e.preventDefault()
       onShowCaseStudy('unauthorized-account')
+    } else if (update.link_url === '#case-study-taste-of-soar-layer-1' && onShowCaseStudy) {
+      e.preventDefault()
+      onShowCaseStudy('taste-of-soar-layer-1')
     }
   }
 
