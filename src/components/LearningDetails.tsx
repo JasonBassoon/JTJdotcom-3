@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Award, CalendarClock, CheckCircle2, ExternalLink, FileBadge, ImageIcon, Link2, Route, ShieldCheck, X } from 'lucide-react'
-import type { LearningMilestone, LearningProof } from '../lib/supabase'
+import { Award, CalendarClock, CheckCircle2, Circle, CircleDot, ExternalLink, FileBadge, ImageIcon, Layers, Link2, ListChecks, Route, ShieldCheck, X } from 'lucide-react'
+import type { LearningCourse, LearningMilestone, LearningProof } from '../lib/supabase'
 import ImageLightbox from './ImageLightbox'
 
 interface LearningDetailsProps {
@@ -15,6 +15,12 @@ function isSafeUrl(url: string) {
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
+
+const courseStatus: Record<LearningCourse['status'], { label: string; Icon: typeof Circle }> = {
+  completed: { label: 'Completed', Icon: CheckCircle2 },
+  in_progress: { label: 'In progress', Icon: CircleDot },
+  not_started: { label: 'Not started', Icon: Circle }
 }
 
 export default function LearningDetails({ milestone, label, onClose }: LearningDetailsProps) {
@@ -37,6 +43,8 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
   const visualProofs = proofs.filter((p) => p.type !== 'link')
   const linkProofs = proofs.filter((p) => p.type === 'link')
   const hasModules = milestone.modules_total != null && milestone.modules_total > 0
+  const courses = milestone.learning_courses
+  const unitLabel = courses.length > 0 ? 'courses' : 'modules'
   const profileUrl = milestone.profile_url && isSafeUrl(milestone.profile_url) ? milestone.profile_url : null
 
   return (
@@ -80,7 +88,7 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
           <div className="learning-progress-top">
             <span>Progress</span>
             <span className="learning-progress-value">
-              {hasModules ? `${milestone.modules_completed ?? 0} of ${milestone.modules_total} modules · ` : ''}
+              {hasModules ? `${milestone.modules_completed ?? 0} of ${milestone.modules_total} ${unitLabel} · ` : ''}
               {milestone.progress_percentage}%
             </span>
           </div>
@@ -88,6 +96,67 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
             <div className="progress-fill" style={{ width: `${milestone.progress_percentage}%` }} />
           </div>
         </div>
+
+        {courses.length > 0 && (
+          <div className="learning-block">
+            <h4 className="learning-block-title">
+              <ListChecks size={18} /> Courses in this path
+            </h4>
+            <ol className="course-list">
+              {courses.map((course) => {
+                const { label: statusLabel, Icon } = courseStatus[course.status]
+                const certificateUrl = course.certificate_url && isSafeUrl(course.certificate_url) ? course.certificate_url : null
+                return (
+                  <li key={course.id} className={`course-item course-${course.status}`}>
+                    <Icon size={18} className="course-icon" />
+                    <div className="course-body">
+                      <span className="course-title">{course.title}</span>
+                      <span className="course-status">
+                        {statusLabel}
+                        {course.completed_date ? ` · ${course.completed_date}` : ''}
+                      </span>
+                    </div>
+                    {certificateUrl && (
+                      <button
+                        type="button"
+                        className="course-cert-btn"
+                        onClick={() =>
+                          setLightbox({
+                            id: course.id,
+                            milestone_id: course.milestone_id,
+                            type: 'certificate',
+                            title: `${course.title} certificate`,
+                            caption: null,
+                            url: certificateUrl,
+                            achieved_date: course.completed_date,
+                            order_index: course.order_index,
+                            created_at: course.created_at
+                          })
+                        }
+                      >
+                        <FileBadge size={14} /> Certificate
+                      </button>
+                    )}
+                  </li>
+                )
+              })}
+            </ol>
+
+            {milestone.courses_carry_over && (
+              <div className="course-carry-over">
+                <Layers size={18} />
+                <div>
+                  <span className="course-carry-over-title">
+                    {milestone.next_path ? `Up next: ${milestone.next_path}` : 'Builds toward the next path'}
+                  </span>
+                  <span className="course-carry-over-text">
+                    These courses carry over to the next learning path, so each path builds on the one before it.
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {milestone.skills.length > 0 && (
           <div className="learning-block">

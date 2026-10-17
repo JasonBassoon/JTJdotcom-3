@@ -24,16 +24,17 @@ export default function Learning() {
   async function fetchMilestones() {
     const { data, error } = await supabase
       .from('learning_milestones')
-      .select('*, learning_proofs(*)')
+      .select('*, learning_proofs(*), learning_courses(*)')
       .order('order_index', { ascending: true })
       .order('order_index', { ascending: true, referencedTable: 'learning_proofs' })
+      .order('order_index', { ascending: true, referencedTable: 'learning_courses' })
 
     if (error) {
       console.error('Error fetching learning milestones:', error)
       setError(true)
     } else {
       setMilestones(
-        (data || []).map((m) => ({ ...m, skills: m.skills ?? [], learning_proofs: m.learning_proofs ?? [] }))
+        (data || []).map((m) => ({ ...m, skills: m.skills ?? [], learning_proofs: m.learning_proofs ?? [], learning_courses: m.learning_courses ?? [] }))
       )
     }
     setLoading(false)

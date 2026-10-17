@@ -48,6 +48,17 @@ export type LearningProof = {
   created_at: string
 }
 
+export type LearningCourse = {
+  id: string
+  milestone_id: string
+  title: string
+  status: 'completed' | 'in_progress' | 'not_started'
+  completed_date: string | null
+  certificate_url: string | null
+  order_index: number
+  created_at: string
+}
+
 export type LearningMilestone = {
   id: string
   category: string
@@ -67,7 +78,10 @@ export type LearningMilestone = {
   profile_label: string | null
   skills: string[]
   order_index: number
+  next_path: string | null
+  courses_carry_over: boolean
   learning_proofs: LearningProof[]
+  learning_courses: LearningCourse[]
 }
 
 export type ContactSubmission = {
