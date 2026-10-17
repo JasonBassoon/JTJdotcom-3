@@ -36,9 +36,21 @@ export type Project = {
   updated_at: string
 }
 
+export type LearningProof = {
+  id: string
+  milestone_id: string
+  type: 'image' | 'certificate' | 'link'
+  title: string
+  caption: string | null
+  url: string
+  achieved_date: string | null
+  order_index: number
+  created_at: string
+}
+
 export type LearningMilestone = {
   id: string
-  category: 'security_plus' | 'tryhackme' | 'python' | 'aws'
+  category: string
   title: string
   description: string
   progress_percentage: number
@@ -46,6 +58,16 @@ export type LearningMilestone = {
   last_updated: string
   metadata: Record<string, any>
   created_at: string
+  learning_path: string | null
+  modules_completed: number | null
+  modules_total: number | null
+  goal_certification: string | null
+  target_date: string | null
+  profile_url: string | null
+  profile_label: string | null
+  skills: string[]
+  order_index: number
+  learning_proofs: LearningProof[]
 }
 
 export type ContactSubmission = {
