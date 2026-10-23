@@ -958,6 +958,15 @@ main {
   line-height: 1.5;
 }
 
+.course-carry-over-done {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.course-carry-over-done > svg {
+  color: var(--success);
+}
+
 .proof-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

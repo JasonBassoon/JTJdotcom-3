@@ -142,7 +142,19 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
               })}
             </ol>
 
-            {milestone.courses_carry_over && (
+            {milestone.completed_path && (
+              <div className="course-carry-over course-carry-over-done">
+                <CheckCircle2 size={18} />
+                <div>
+                  <span className="course-carry-over-title">Completed: {milestone.completed_path} · 100%</span>
+                  <span className="course-carry-over-text">
+                    Courses from that path carry over here, which is why this path is already underway.
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {milestone.courses_carry_over && !milestone.completed_path && (
               <div className="course-carry-over">
                 <Layers size={18} />
                 <div>
