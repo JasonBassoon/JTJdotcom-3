@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Award, CalendarClock, CheckCircle2, Circle, CircleDot, ExternalLink, FileBadge, ImageIcon, Layers, Link2, ListChecks, Route, ShieldCheck, X } from 'lucide-react'
-import type { LearningCourse, LearningMilestone, LearningProof } from '../lib/supabase'
+import { Award, CalendarCheck, CalendarClock, CheckCircle2, Circle, CircleDot, ExternalLink, FileBadge, ImageIcon, Layers, Link2, ListChecks, Route, ShieldCheck, X } from 'lucide-react'
+import { formatExamDate, type LearningCourse, type LearningMilestone, type LearningProof } from '../lib/supabase'
 import ImageLightbox from './ImageLightbox'
 
 interface LearningDetailsProps {
@@ -75,13 +75,23 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
               <span className="learning-fact-value">{milestone.goal_certification || 'Skill building, no exam planned'}</span>
             </div>
           </div>
-          <div className="learning-fact">
-            <CalendarClock size={18} />
-            <div>
-              <span className="learning-fact-label">Target</span>
-              <span className="learning-fact-value">{milestone.target_date || 'Ongoing'}</span>
+          {milestone.exam_date ? (
+            <div className="learning-fact">
+              <CalendarCheck size={18} />
+              <div>
+                <span className="learning-fact-label">Exam scheduled</span>
+                <span className="learning-fact-value">{formatExamDate(milestone.exam_date)}</span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="learning-fact">
+              <CalendarClock size={18} />
+              <div>
+                <span className="learning-fact-label">Target</span>
+                <span className="learning-fact-value">{milestone.target_date || 'Ongoing'}</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="learning-progress-block">

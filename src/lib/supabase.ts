@@ -82,8 +82,13 @@ export type LearningMilestone = {
   courses_carry_over: boolean
   completed_path: string | null
   item_label: string | null
+  exam_date: string | null
   learning_proofs: LearningProof[]
   learning_courses: LearningCourse[]
+}
+
+export function formatExamDate(value: string, month: 'short' | 'long' = 'long') {
+  return new Date(`${value}T00:00:00`).toLocaleDateString('en-US', { month, day: 'numeric', year: 'numeric' })
 }
 
 export type ContactSubmission = {

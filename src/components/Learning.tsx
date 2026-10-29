@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Award, ChevronRight, Route } from 'lucide-react'
-import { supabase, type LearningMilestone } from '../lib/supabase'
+import { Award, CalendarCheck, ChevronRight, Route } from 'lucide-react'
+import { formatExamDate, supabase, type LearningMilestone } from '../lib/supabase'
 import LearningDetails from './LearningDetails'
 
 const categoryLabels: Record<string, string> = {
@@ -85,6 +85,13 @@ export default function Learning() {
                   <div className="milestone-goal">
                     <Award size={14} />
                     <span>Goal: {milestone.goal_certification}</span>
+                  </div>
+                )}
+
+                {milestone.exam_date && (
+                  <div className="milestone-exam">
+                    <CalendarCheck size={14} />
+                    <span>Exam scheduled: {formatExamDate(milestone.exam_date, 'short')}</span>
                   </div>
                 )}
 
