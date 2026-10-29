@@ -44,7 +44,7 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
   const linkProofs = proofs.filter((p) => p.type === 'link')
   const hasModules = milestone.modules_total != null && milestone.modules_total > 0
   const courses = milestone.learning_courses
-  const unitLabel = courses.length > 0 ? 'courses' : 'modules'
+  const unitLabel = milestone.item_label || (courses.length > 0 ? 'courses' : 'modules')
   const profileUrl = milestone.profile_url && isSafeUrl(milestone.profile_url) ? milestone.profile_url : null
 
   return (
@@ -100,7 +100,7 @@ export default function LearningDetails({ milestone, label, onClose }: LearningD
         {courses.length > 0 && (
           <div className="learning-block">
             <h4 className="learning-block-title">
-              <ListChecks size={18} /> Courses in this path
+              <ListChecks size={18} /> {unitLabel.charAt(0).toUpperCase() + unitLabel.slice(1)} in this path
             </h4>
             <ol className="course-list">
               {courses.map((course) => {

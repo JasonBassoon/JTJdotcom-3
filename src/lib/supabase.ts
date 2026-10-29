@@ -81,6 +81,7 @@ export type LearningMilestone = {
   next_path: string | null
   courses_carry_over: boolean
   completed_path: string | null
+  item_label: string | null
   learning_proofs: LearningProof[]
   learning_courses: LearningCourse[]
 }
